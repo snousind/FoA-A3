@@ -61,17 +61,17 @@ def collect_worst_ratio(node: BeeNode):
         pos_x_neg_y_neg_z,
         pos_x_pos_y_neg_z,
     ])
-    if pos_x >= 12 or neg_x >= 12:
+    if pos_x >= 19 or neg_x >= 19:
         try:
             default = max(default, (pos_x/neg_x, neg_x, "x"), (neg_x/pos_x, pos_x, "x"))
         except ZeroDivisionError:
             default = (float('inf'), (pos_x, neg_x), "x")
-    if pos_y >= 12 or neg_y >= 12:
+    if pos_y >= 19 or neg_y >= 19:
         try:
             default = max(default, (pos_y/neg_y, neg_y, "y"), (neg_y/pos_y, pos_y, "y"))
         except ZeroDivisionError:
             default = (float('inf'), (pos_y, neg_y), "y")
-    if pos_z >= 12 or neg_z >= 12:
+    if pos_z >= 19 or neg_z >= 19:
         try:
             default = max(default, (pos_z/neg_z, neg_z, "z"), (neg_z/pos_z, pos_z, "z"))
         except ZeroDivisionError:
