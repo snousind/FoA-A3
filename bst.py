@@ -96,10 +96,11 @@ class BinarySearchTree(Generic[K, I]):
             current.subtree_size += 1
         elif key > current.key:
             current.right = self.insert_aux(current.right, key, item)
+            current.subtree_size += 1
         else:  # key == current.key
             raise ValueError('Inserting duplicate item')
         return current
-        return current.subtree_size
+
 
     def __delitem__(self, key: K) -> None:
         self.root = self.delete_aux(self.root, key)
@@ -114,8 +115,10 @@ class BinarySearchTree(Generic[K, I]):
             raise ValueError('Deleting non-existent item')
         elif key < current.key:
             current.left  = self.delete_aux(current.left, key)
+            current.subtree_size -= 1
         elif key > current.key:
             current.right = self.delete_aux(current.right, key)
+            current.subtree_size -= 1
         else:  # we found our key => do actual deletion
             if self.is_leaf(current):
                 self.length -= 1
@@ -132,6 +135,7 @@ class BinarySearchTree(Generic[K, I]):
             current.key  = succ.key
             current.item = succ.item
             current.right = self.delete_aux(current.right, succ.key)
+            current.subtree_size -= 1
 
         return current
 
@@ -186,4 +190,22 @@ class BinarySearchTree(Generic[K, I]):
         """
         Finds the kth smallest value by key in the subtree rooted at current.
         """
-        raise NotImplementedError()
+        stack = []
+        count = 0
+
+        while True:
+            while current is not None:
+                stack.append(current)
+                current = current.left
+            if stack is not None:
+                current = stack.pop()
+                count +=1
+
+                if count == k:
+                    return current
+                current = current.right
+            else:
+                break
+
+        return None
+
