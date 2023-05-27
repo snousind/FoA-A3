@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import List
 from heap import MaxHeap
 
 @dataclass
@@ -16,13 +17,21 @@ class Beehive:
 class BeehiveSelector:
 
     def __init__(self, max_beehives: int):
-        raise NotImplementedError()
+        self.max_beehives = max_beehives
+        self.beehives = MaxHeap(max_beehives)
 
     def set_all_beehives(self, hive_list: list[Beehive]):
-        raise NotImplementedError()
+        self.beehives = MaxHeap(self.max_beehives)
+        for hive in hive_list:
+            self.add_beehive(hive)
     
     def add_beehive(self, hive: Beehive):
-        raise NotImplementedError()
+        self.beehives.add(hive)
+
     
     def harvest_best_beehive(self):
-        raise NotImplementedError()
+        if len(self.beehives) == 0:
+            raise IndexError("No beehives to harvest")
+
+        best_hive = self.beehives.get_max()
+        return best_hive
