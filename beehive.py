@@ -25,14 +25,17 @@ class BeehiveSelector:
         - Best Case: O(1) if the hive_list is empty or contains a small number of beehives.
         - Worst Case: O(M) where M is the length of hive_list.
         """
-
-
         self.beehives = hive_list[:self.max_beehives]
 
     def add_beehive(self, hive: Beehive):
         """
-        Add a new beehive to the BeehiveSelector structure.
-        Complexity: O(log(N)), where N is the number of beehives currently in the structure.
+           Add a new beehive to the BeehiveSelector structure.
+
+           Best case complexity: O(log(n)), where n is the number of beehives currently in the structure. This occurs when the heap
+           is balanced, so the height of the tree is logarithmically proportional to the number of nodes in the heap.
+
+           Worst case complexity: O(n), where n is the number of elements in the heap. This occurs if we need to traverse through every
+           element and compare n times before we find the correct position to append the new hive.
         """
         if len(self.beehives) < self.max_beehives:
             self.beehives.append(hive)
@@ -40,8 +43,14 @@ class BeehiveSelector:
 
     def harvest_best_beehive(self):
         """
-        Select and harvest the beehive that yields the most emeralds.
-        Complexity: O(log(N)), where N is the number of beehives currently in the structure.
+       Select and harvest the beehive that yields the most emeralds.
+
+       Best case complexity: O(log(n)), where n is the number of beehives currently in the structure. This occurs when the tree
+       is balanced, so the height of the tree is logarithmically proportional to the number of nodes in the tree, meaning the
+       method only has to traverse log(n) nodes to find the hive.
+
+       Worst case complexity: O(n), where n is the number of beehives in the structure. This occurs when the hive we are looking
+       for is at the maximum depth of an unbalance heap, so we have to traverse n beehives to find the maximum one for harvest.
         """
         if not self.beehives:
             return 0.0
