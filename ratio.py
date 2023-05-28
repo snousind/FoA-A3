@@ -38,9 +38,9 @@ class Percentiles(Generic[T]):
         This occurs when the point is at the end of the list. When this happens, all
         elements in the list are shifted.
         """
-        index = bisect.bisect_left(self.points, item)
-        if index < len(self.points) and self.points[index] == item:
-            del self.points[index]
+        point_position = bisect.bisect_left(self.points, item)
+        if point_position < len(self.points) and self.points[point_position] == item:
+            del self.points[point_position]
 
 
     def ratio(self, x, y):
@@ -54,11 +54,13 @@ class Percentiles(Generic[T]):
         This occurs when N (the total number of points currently in the Percentile object)
         is large and O (the number of points returned by the function) is close to N.
         """
-        n = len(self.points)
-        lower_rank = ceil(n * x / 100)
-        upper_rank = n - ceil(n * y / 100)
+        total_number_of_points = len(self.points)
+        first_point_position = ceil(total_number_of_points * x / 100)
+        # first_point_position is the position of the first point in the list of sorted points
+        last_point_position = total_number_of_points - ceil(total_number_of_points * y / 100)
+        # last_point_position is the position of the last point in the list of sorted points
         sorted_points = sorted(self.points)
-        return sorted_points[lower_rank:upper_rank]
+        return sorted_points[first_point_position:last_point_position]
 
 
 if __name__ == "__main__":
