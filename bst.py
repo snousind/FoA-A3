@@ -145,6 +145,20 @@ class BinarySearchTree(Generic[K, I]):
             It should be a child node having the smallest key among all the
             larger keys.
         """
+        """
+        Complexity Analysis:
+
+       Best Case Time Complexity: O(1)
+       The best case occurs when the current node has a right child.
+       In this case, the function performs the initial checks for current is None and current.right is not None and then calls the get_minimal function, which has a best case time complexity of O(1).
+       The time complexity in the best case is constant.
+
+
+       Worst Case Time Complexity: O(h) or O(n)
+       The worst case occurs when the current node does not have a right child and is at the deepest level of the tree or in an unbalanced tree structure.
+       In this case, the function performs the initial checks for current is None and current.right is not None and returns None without any further recursive calls.
+       The time complexity in the worst case is O(h), where 'h' is the height of the tree, or O(n) if the tree is highly unbalanced.
+        """
         if current is None:
             return None
         else:
@@ -154,6 +168,19 @@ class BinarySearchTree(Generic[K, I]):
         """
             Get a node having the smallest key in the current sub-tree.
         """
+        """
+        Best Case Complexity: O(1)
+        occurs when the smallest key is at the root of the current sub-tree.
+
+        Worst Case Complexity: O(h) or O(n)
+
+       The worst case occurs when the tree is unbalanced, and the smallest key is located at the leftmost leaf node or at a deeper level.
+       In this case, the function needs to traverse through the left child nodes until it reaches the leftmost leaf node.
+       
+       The worst case time complexity is O(h), where 'h' is the height of the current sub-tree.
+       However, if the tree is highly unbalanced, the height can be as high as 'n', resulting in a worst-case time complexity of O(n).
+        """
+
         if current is None:
             return None
         elif current.left is None:
@@ -189,6 +216,19 @@ class BinarySearchTree(Generic[K, I]):
     def kth_smallest(self, k: int, current: TreeNode) -> TreeNode:
         """
         Finds the kth smallest value by key in the subtree rooted at current.
+        """
+        """
+        Complexity Analysis:
+
+          Best Case Time Complexity: O(log n), where 'n' is the number of nodes in the tree.
+          The best case occurs when the binary search tree is balanced.
+          In this case, the function performs comparisons and recursive calls while traversing down the tree to find the kth smallest value.
+    
+    
+          Worst Case Time Complexity: O(n), where 'n' is the number of nodes in the subtree.
+          The worst case occurs when the binary search tree is highly unbalanced
+          In this case, the function may need to traverse all the nodes in the subtree rooted at the current node in order to find the kth smallest value.
+
         """
         stack = []
         count = 0
