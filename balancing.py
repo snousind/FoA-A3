@@ -1,19 +1,27 @@
 from __future__ import annotations
+
+from ratio import Percentiles
 from threedeebeetree import Point
+from typing import List
 
 def make_ordering(my_coordinate_list: list[Point]) -> list[Point]:
-    def divide_points(points, axis):
-        points.sort(key=lambda p: p[axis])
-        mid = len(points) // 2
-        return points[mid], points[:mid], points[mid + 1:]
+    """
+    Best and Worst Case Complexity: O(n * log(n))
 
-    def create_ordered_list(points, axis):
-        if len(points) == 0:
-            return []
-        elif len(points) == 1:
-            return points
-        else:
-            root, left, right = divide_points(points, axis)
-            return [root] + create_ordered_list(left, (axis + 1) % 3) + create_ordered_list(right, (axis + 1) % 3)
+    This is because the complexity for sorting one point in the list based on their x, y and z
+    coordinates is O(log(n)). However, there are n points in the list. Therefore, the complexity
+    is O(n * log(n)).
+    """
 
-    return create_ordered_list(my_coordinate_list, 0)
+    x_sorted_values = sorted(my_coordinate_list, key=lambda p: p[0])
+    y_sorted_values = sorted(my_coordinate_list, key=lambda p: p[1])
+    z_sorted_values = sorted(my_coordinate_list, key=lambda p: p[2])
+    return [point for points in zip(x_sorted_values, y_sorted_values, z_sorted_values) for point in points]
+    #zip method combines a value from x, y and z
+
+
+
+
+
+
+
